@@ -143,43 +143,52 @@ namespace MathLibrary {
 
 		}
 
-		//Matrix3 MakeRotate(float op) {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Matrix3 MakeScale(const Vector3& op) {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Matrix3 MakeTransform(const Vector3& op) {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Vector3 GetRight() {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Vector3 GetForward() {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Vector3 GetTranslate() {
-		//
-		//	return;
-		//
-		//}
-		//
-		//bool IsApproximatelyEqual(const Matrix3& op, float E) {
+		static Matrix3 MakeRotate(float op) {
+
+			op *= 180/M_PI;
+
+			return {cos(op),-sin(op),0,sin(op),cos(op),0,0,0,1};
+		
+		}
+		
+		static Matrix3 MakeScale(float x, float y) {
+
+			return {x,0,0,0,y,0,0,0,1};
+
+		}
+		
+		
+		static Matrix3 MakeTranslate(const Vector3& op) {
+
+			return {op.x,0,0,0,op.y,0,0,0,1};
+
+		}
+		
+		Vector3 GetRight() {
+		
+			Vector3 temp (grid[0][0],grid[1][0],grid[2][0]);
+
+			return temp;
+		
+		}
+		
+		Vector3 GetForward() {
+		
+			Vector3 temp (grid[0][1],grid[1][1],grid[2][1]);
+
+			return temp;
+		
+		}
+		
+		Vector3 GetTranslate() {
+		
+			Vector3 temp (grid[0][2],grid[1][2],grid[2][2]);
+
+			return temp;
+		
+		}
+		
+		//bool IsApproximatelyEqual(const Matrix3& op, float E = 1e-4) {
 		//
 		//	return;
 		//

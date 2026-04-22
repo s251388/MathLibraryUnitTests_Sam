@@ -193,10 +193,10 @@ namespace MathLibraryTests
 			Matrix3 actual = Matrix3::MakeScale(2.0f,2.0f);
 
 			Assert::AreEqual(
-				Matrix3(
+				Matrix3{
 					2.f, 0  , 0,
 					0  , 2.f, 0,
-					0  , 0  , 1.f),
+					0  , 0  , 1.f},
 				actual);
 		}
 
