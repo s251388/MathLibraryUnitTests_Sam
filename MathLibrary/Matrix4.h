@@ -1,5 +1,8 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 namespace MathLibrary {
 
 	struct Matrix4 {
@@ -145,73 +148,93 @@ namespace MathLibrary {
 		}
 
 
-		//Matrix4 MakeRotateX(float op) {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Matrix4 MakeRotateY(float op) {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Matrix4 MakeRotateZ(float op) {
-		//
-		//	return;
-		//
-		//}
-		//
-		//
-		//Matrix4 MakeScale(const Vector4& op) {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Vector4 GetRight() {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Vector4 GetUp() {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Vector4 GetForward() {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Vector4 GetPosition() {
-		//
-		//	return;
-		//
-		//}
-		//
-		//
-		//bool IsApproximatelyEqual(const Matrix4& op, float E) {
-		//
-		//	return;
-		//
-		//}
-		//
-		//void SetTranslate(const Vector4& op) {
-		//
-		//	return;
-		//
-		//}
-		//
-		//Matrix4 MakeTranslate(const Vector4& op) {
-		//
-		//	return;
-		//
-		//}
+		static Matrix4 MakeRotateX(float op) {
+			
+			op *= 180/M_PI;
+
+			return {1,0,0,0,cos(op),sin(op),0,-sin(op),cos(op)};
+
+		}
+
+		static Matrix4 MakeRotateY(float op) {
+
+			op *= 180/M_PI;
+
+			return {cos(op),0,sin(op),0,1,0,-sin(op),0,cos(op)};
+
+		}
+
+		static Matrix4 MakeRotateZ(float op) {
+
+			op *= 180/M_PI;
+
+			return {cos(op),-sin(op),0,sin(op),cos(op),0,0,0,1};
+		
+		}
+		
+		static Matrix4 MakeScale(float x, float y, float z) {
+			
+			return {x,0,0,0,0,y,0,0,0,0,z,0,0,0,0,1};
+		
+		}
+		
+		Vector4 GetRight() {
+			
+			Vector4 temp (grid[0][0],grid[1][0],grid[2][0],grid[3][0]);
+
+			return temp;
+		
+		}
+		
+		Vector4 GetUp() {
+			
+			Vector4 temp (grid[0][1],grid[1][1],grid[2][1],grid[3][1]);
+
+			return temp;
+		
+		}
+		
+		Vector4 GetForward() {
+			
+			Vector4 temp (grid[0][2],grid[1][2],grid[2][2],grid[3][2]);
+
+			return temp;
+		
+		}
+		
+		Vector4 GetPosition() {
+		
+			Vector4 temp (grid[0][3],grid[1][3],grid[2][3],grid[3][3]);
+
+			return temp;
+		
+		}
+		
+		bool IsApproximatelyEqual(const Matrix4& op, float E = 1e-4) const {
+
+			for (int i = 0; i < 16; i++) {
+				if (arr[i] - op.arr[i] > E) {
+					return false;
+				}
+			}
+
+			return true;
+
+		}
+
+		void SetTranslate(const Vector4& op) {
+		
+			for (int i = 0; i < 4; i++) {
+				grid[i][3] = op[i];
+			}
+		
+		}
+		
+		static Matrix4 MakeTranslation(float x, float y, float z) {
+
+			return {1,0,0,x,0,1,0,y,0,0,1,z,0,0,0,1};
+		
+		}
 
 	};
 

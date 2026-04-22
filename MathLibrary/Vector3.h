@@ -1,5 +1,8 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 namespace MathLibrary {
 
 	struct Vector3 {
@@ -227,7 +230,7 @@ namespace MathLibrary {
 
 		}
 
-		bool IsApproximatelyEqual(const Vector3& op, float E = 1e-4) {				
+		bool IsApproximatelyEqual(const Vector3& op, float E = 1e-4) const {				
 																	// By subtracting one from the other, if they are very similar the magnitude of
 			return (*this - op).Magnitude() < E;					// the resulting vector3 should be close to 0. I worry about how this would work
 																	// for vector4s as quaternions though, as any given rotation can be represented

@@ -1,7 +1,4 @@
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 #include "CppUnitTest.h"
 #include "TestToString.h"
 //#include "Utils.h"

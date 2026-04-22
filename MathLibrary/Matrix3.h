@@ -1,5 +1,8 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 namespace MathLibrary {
 
 	struct Matrix3 {
@@ -157,7 +160,6 @@ namespace MathLibrary {
 
 		}
 		
-		
 		static Matrix3 MakeTranslate(const Vector3& op) {
 
 			return {op.x,0,0,0,op.y,0,0,0,1};
@@ -166,7 +168,7 @@ namespace MathLibrary {
 		
 		Vector3 GetRight() {
 		
-			Vector3 temp (grid[0][0],grid[1][0],grid[2][0]);
+			Vector3 temp (grid[0][1],grid[1][1],grid[2][1]);
 
 			return temp;
 		
@@ -174,7 +176,7 @@ namespace MathLibrary {
 		
 		Vector3 GetForward() {
 		
-			Vector3 temp (grid[0][1],grid[1][1],grid[2][1]);
+			Vector3 temp (grid[0][0],grid[1][0],grid[2][0]);
 
 			return temp;
 		
@@ -188,11 +190,17 @@ namespace MathLibrary {
 		
 		}
 		
-		//bool IsApproximatelyEqual(const Matrix3& op, float E = 1e-4) {
-		//
-		//	return;
-		//
-		//}
+		bool IsApproximatelyEqual(const Matrix3& op, float E = 1e-4) const {
+			
+			for (int i = 0; i < 9; i++) {
+				if (arr[i] - op.arr[i] > E) {
+					return false;
+				}
+			}
+
+			return true;
+		
+		}
 
 	};
 
