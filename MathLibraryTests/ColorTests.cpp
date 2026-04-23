@@ -90,7 +90,7 @@ namespace MathLibraryTests
 		TEST_METHOD(GetRed)
 		{
 			Color actual(92, 164, 10, 25);
-			const auto r = actual.GetRed();
+			const unsigned char r = actual.GetRed();
 			Assert::AreEqual((unsigned char)92, r);
 		}
 
@@ -98,7 +98,7 @@ namespace MathLibraryTests
 		TEST_METHOD(GetGreen)
 		{
 			Color actual(92, 164, 10, 25);
-			const auto g = actual.GetGreen();
+			const unsigned char g = actual.GetGreen();
 			Assert::AreEqual((unsigned char)164, g);
 		}
 
@@ -106,7 +106,7 @@ namespace MathLibraryTests
 		TEST_METHOD(GetBlue)
 		{
 			Color actual(92, 164, 10, 25);
-			const auto b = actual.GetBlue();
+			const unsigned char b = actual.GetBlue();
 			Assert::AreEqual((unsigned char)10, b);
 		}
 
@@ -114,7 +114,7 @@ namespace MathLibraryTests
 		TEST_METHOD(GetAlpha)
 		{
 			Color actual(92, 164, 10, 25);
-			const auto a = actual.GetAlpha();
+			const unsigned char a = actual.GetAlpha();
 			Assert::AreEqual((unsigned char)25, a);
 		}
 	};

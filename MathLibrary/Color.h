@@ -5,8 +5,9 @@ namespace MathLibrary
 
 	struct Color {
 
-		unsigned int rgba;			// Need to figure out how to pack information into this. I understand the concept of
-									// cramming 4 0-255 ints into this one variable, but not the actual code for it.
+		unsigned int rgba;
+		
+
 		Color() {
 		
 			rgba = 0;
@@ -25,8 +26,15 @@ namespace MathLibrary
 
 		}
 		
+
+		bool operator==(const Color& op) {
+
+			return rgba == op.rgba;
+
+		}
+
 		
-		unsigned char getRed() {
+		unsigned char GetRed() {
 
 			return (unsigned char)rgba >> 24;
 
@@ -39,40 +47,40 @@ namespace MathLibrary
 
 		}   
 
-		unsigned char getGreen() {
+		unsigned char GetGreen() {
 
 			return (unsigned char)rgba >> 16;
 
 		}
 
-		void setGreen (unsigned char green) {
+		void SetGreen (unsigned char green) {
 
 			rgba &= 0xFF00FFFF;
 			rgba |= green << 16;
 
 		}
 
-		unsigned char getBlue() {
+		unsigned char GetBlue() {
 
 			return (unsigned char)rgba >> 8;
 
 		}
 
-		void setBlue(unsigned char blue) {
+		void SetBlue(unsigned char blue) {
 
 			rgba &= 0xFFFF00FF;
 			rgba |= blue << 8;
 
 		}
 
-		unsigned char getAlpha() {
+		unsigned char GetAlpha() {
 		
 			return (unsigned char)rgba;
 		
 		}
 		
-		void setAlpha(unsigned char alpha) {
-
+		void SetAlpha(unsigned char alpha) {
+			
 			rgba &= 0xFFFFFF00;
 			rgba |= alpha;
 
