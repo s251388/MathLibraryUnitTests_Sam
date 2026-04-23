@@ -244,7 +244,7 @@ namespace MathLibrary {
 			}
 
 		}
-
+		
 		void Normalise() {
 
 			*this = Normalised();
@@ -253,9 +253,13 @@ namespace MathLibrary {
 
 		bool IsApproximatelyEqual(const Vector4& op, float E = 1e-4) const {				
 
-			Vector4 temp = *this;			
+			for (int i = 0; i < 4; i++) {
+				if (op[i] == NAN) {
+					return false;
+				}
+			}
 
-			return (temp - op).Magnitude() < E;
+			return (abs(x-op.x) < E && abs(y-op.y) < E && abs(z-op.z) < E);
 
 		}	
 

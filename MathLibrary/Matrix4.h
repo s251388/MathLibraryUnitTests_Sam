@@ -78,10 +78,10 @@ namespace MathLibrary {
 			
 			Vector4 temp;
 
-			temp.x = grid[0][0] * op.x + grid[0][1] * op.y + grid[0][2] * op.z + grid[0][3] * op.w;			
-			temp.y = grid[1][0] * op.x + grid[1][1] * op.y + grid[1][2] * op.z + grid[1][3] * op.w;			
-			temp.z = grid[2][0] * op.x + grid[2][1] * op.y + grid[2][2] * op.z + grid[2][3] * op.w;			
-			temp.w = grid[3][0] * op.x + grid[3][1] * op.y + grid[3][2] * op.z + grid[3][3] * op.w;
+			temp.x = grid[0][0] * op.x + grid[1][0] * op.y + grid[2][0] * op.z + grid[3][0] * op.w;			
+			temp.y = grid[0][1] * op.x + grid[1][1] * op.y + grid[2][1] * op.z + grid[3][1] * op.w;			
+			temp.z = grid[0][2] * op.x + grid[1][2] * op.y + grid[2][2] * op.z + grid[3][2] * op.w;			
+			temp.w = grid[0][3] * op.x + grid[1][3] * op.y + grid[2][3] * op.z + grid[3][3] * op.w;
 
 			return temp;
 
@@ -94,7 +94,7 @@ namespace MathLibrary {
 			for (int A = 0; A < 4; A++) {				// A shmancy set of for loops i figured out after writing
 				for (int B = 0; B < 4; B++) {			// the order of operations up on the whiteboard a bunch.
 					for (int C = 0; C < 4; C++) {
-						temp.grid[A][B] += grid[A][C] * op.grid[C][B];
+						temp.grid[B][A] += grid[C][A] * op.grid[B][C];
 					}
 				}
 			}
@@ -149,26 +149,20 @@ namespace MathLibrary {
 
 
 		static Matrix4 MakeRotateX(float op) {
-			
-			op *= 180/M_PI;
 
-			return {1,0,0,0,cos(op),sin(op),0,-sin(op),cos(op)};
+			return {1,0,0,0,0,cos(op),-sin(op),0,0,sin(op),cos(op),0,0,0,0,1};
 
 		}
 
 		static Matrix4 MakeRotateY(float op) {
 
-			op *= 180/M_PI;
-
-			return {cos(op),0,sin(op),0,1,0,-sin(op),0,cos(op)};
+			return {cos(op),0,sin(op),0,0,1,0,0,-sin(op),0,cos(op),0,0,0,0,1};
 
 		}
 
 		static Matrix4 MakeRotateZ(float op) {
 
-			op *= 180/M_PI;
-
-			return {cos(op),-sin(op),0,sin(op),cos(op),0,0,0,1};
+			return {cos(op),sin(op),0,0,-sin(op),cos(op),0,0,0,0,1,0,0,0,0,1};
 		
 		}
 		
@@ -180,7 +174,7 @@ namespace MathLibrary {
 		
 		Vector4 GetRight() {
 			
-			Vector4 temp (grid[0][0],grid[1][0],grid[2][0],grid[3][0]);
+			Vector4 temp (grid[0][0],grid[0][1],grid[0][2],grid[0][3]);
 
 			return temp;
 		
@@ -188,7 +182,7 @@ namespace MathLibrary {
 		
 		Vector4 GetUp() {
 			
-			Vector4 temp (grid[0][1],grid[1][1],grid[2][1],grid[3][1]);
+			Vector4 temp (grid[1][0],grid[1][1],grid[1][2],grid[1][3]);
 
 			return temp;
 		
@@ -196,7 +190,7 @@ namespace MathLibrary {
 		
 		Vector4 GetForward() {
 			
-			Vector4 temp (grid[0][2],grid[1][2],grid[2][2],grid[3][2]);
+			Vector4 temp (grid[2][0],grid[2][1],grid[2][2],grid[2][3]);
 
 			return temp;
 		
@@ -213,7 +207,7 @@ namespace MathLibrary {
 		bool IsApproximatelyEqual(const Matrix4& op, float E = 1e-4) const {
 
 			for (int i = 0; i < 16; i++) {
-				if (arr[i] - op.arr[i] > E) {
+				if (op.arr[i] == NAN || arr[i] - op.arr[i] > E) {
 					return false;
 				}
 			}
@@ -232,7 +226,7 @@ namespace MathLibrary {
 		
 		static Matrix4 MakeTranslation(float x, float y, float z) {
 
-			return {1,0,0,x,0,1,0,y,0,0,1,z,0,0,0,1};
+			return {1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1};
 		
 		}
 

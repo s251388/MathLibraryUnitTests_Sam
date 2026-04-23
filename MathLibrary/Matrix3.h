@@ -78,9 +78,9 @@ namespace MathLibrary {
 			
 			Vector3 temp;
 			
-			temp.x = grid[0][0] * op.x + grid[0][1] * op.y + grid[0][2] * op.z;		
-			temp.y = grid[1][0] * op.x + grid[1][1] * op.y + grid[1][2] * op.z;		
-			temp.z = grid[2][0] * op.x + grid[2][1] * op.y + grid[2][2] * op.z;		
+			temp.x = grid[0][0] * op.x + grid[1][0] * op.y + grid[2][0] * op.z;		
+			temp.y = grid[0][1] * op.x + grid[1][1] * op.y + grid[2][1] * op.z;		
+			temp.z = grid[0][2] * op.x + grid[1][2] * op.y + grid[2][2] * op.z;		
 
 			return temp;
 
@@ -93,7 +93,7 @@ namespace MathLibrary {
 			for (int A = 0; A < 3; A++) {				// A shmancy set of for loops i figured out after manually writing the order of
 				for (int B = 0; B < 3; B++) {			// operations up on the whiteboard a bunch to see what changes with each process.
 					for (int C = 0; C < 3; C++) {
-						temp.grid[A][B] += grid[A][C] * op.grid[C][B];
+						temp.grid[B][A] += grid[C][A] * op.grid[B][C];
 					}
 				}
 			}
@@ -148,9 +148,7 @@ namespace MathLibrary {
 
 		static Matrix3 MakeRotate(float op) {
 
-			op *= 180/M_PI;
-
-			return {cos(op),-sin(op),0,sin(op),cos(op),0,0,0,1};
+			return {cos(op),sin(op),0,-sin(op),cos(op),0,0,0,1};
 		
 		}
 		
@@ -168,23 +166,23 @@ namespace MathLibrary {
 		
 		Vector3 GetRight() {
 		
-			Vector3 temp (grid[0][1],grid[1][1],grid[2][1]);
+			Vector3 temp (grid[1][0],grid[1][1],grid[1][2]);
 
 			return temp;
-		
+
 		}
-		
+
 		Vector3 GetForward() {
-		
-			Vector3 temp (grid[0][0],grid[1][0],grid[2][0]);
+
+			Vector3 temp (grid[0][0],grid[0][1],grid[0][2]);
 
 			return temp;
-		
+
 		}
-		
+
 		Vector3 GetTranslate() {
-		
-			Vector3 temp (grid[0][2],grid[1][2],grid[2][2]);
+
+			Vector3 temp (grid[2][0],grid[2][1],grid[2][2]);
 
 			return temp;
 		
@@ -193,7 +191,7 @@ namespace MathLibrary {
 		bool IsApproximatelyEqual(const Matrix3& op, float E = 1e-4) const {
 			
 			for (int i = 0; i < 9; i++) {
-				if (arr[i] - op.arr[i] > E) {
+				if (op.arr[i] == NAN || arr[i] - op.arr[i] > E) {
 					return false;
 				}
 			}

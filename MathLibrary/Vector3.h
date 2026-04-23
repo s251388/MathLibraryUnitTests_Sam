@@ -231,8 +231,14 @@ namespace MathLibrary {
 
 		bool IsApproximatelyEqual(const Vector3& op, float E = 1e-4) const {				
 			
-			return (abs(x-op.x) < E && abs(y-op.y) < E && abs(z-op.z) < E);
+			for (int i = 0; i < 3; i++) {
+				if (op[i] == NAN) {
+					return false;
+				}
+			}
 
+			return (abs(x-op.x) < E && abs(y-op.y) < E && abs(z-op.z) < E);
+		
 		}															
 
 		float AngleBetween(Vector3& op) {
