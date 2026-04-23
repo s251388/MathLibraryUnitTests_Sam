@@ -158,7 +158,6 @@ namespace MathLibrary {
 			x *= -1;
 			y *= -1;
 			z *= -1;
-			w *= -1;
 
 			return *this;
 		}
@@ -176,7 +175,7 @@ namespace MathLibrary {
 			Vector4 temp1 = *this;
 			temp1 *= *this;
 			float mag1 = (temp1.x + temp1.y + temp1.z + temp1.w);	// Gets the XYZW values squared and added. The two magnitudes don't need to be
-			// square-rooted back down because they are BOTH squared, their relationship
+																	// square-rooted back down because they are BOTH squared, their relationship
 			Vector4 temp2 = op;										// to eachother will be the same no matter what i multiply or divide them by.
 			temp2 *= op;
 			float mag2 = (temp2.x + temp2.y + temp2.z + temp2.w);
@@ -194,7 +193,7 @@ namespace MathLibrary {
 			case 2:
 				return z;
 			case 3:
-				return y;
+				return w;
 			}
 
 		}
@@ -209,7 +208,7 @@ namespace MathLibrary {
 			case 2:
 				return z;
 			case 3:
-				return y;
+				return w;
 			}
 
 		}
@@ -233,17 +232,22 @@ namespace MathLibrary {
 
 		}
 
-		void Normalise() {
+		Vector4 Normalised() {				 
 
-			*this / Magnitude();
+			float mag = Magnitude();
+
+			if (mag > 0.0f) {
+				return *this /= mag;
+			}
+			else {
+				return {0,0,0,0};
+			}
 
 		}
 
-		Vector4 Normalised() {				
-			// These don't need an input because unlike regular functions, as members of structs they technically	
-			Vector4 temp = *this;		// always have the object they are from fed into/accessible from within the function by default.
+		void Normalise() {
 
-			return temp / Magnitude();
+			*this = Normalised();
 
 		}
 

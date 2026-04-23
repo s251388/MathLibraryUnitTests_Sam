@@ -10,7 +10,7 @@ namespace MathLibrary
 
 		Color() {
 		
-			rgba = 0;
+			rgba = 255;
 		
 		}
 		
@@ -36,7 +36,7 @@ namespace MathLibrary
 		
 		unsigned char GetRed() const {
 
-			return (unsigned char)rgba >> 24;
+			return (unsigned char)(rgba >> 24);
 
 		}
 
@@ -49,7 +49,7 @@ namespace MathLibrary
 
 		unsigned char GetGreen() const {
 
-			return (unsigned char)rgba >> 16;
+			return (unsigned char)(rgba >> 16);
 
 		}
 
@@ -62,7 +62,7 @@ namespace MathLibrary
 
 		unsigned char GetBlue() const {
 
-			return (unsigned char)rgba >> 8;
+			return (unsigned char)(rgba >> 8);
 
 		}
 

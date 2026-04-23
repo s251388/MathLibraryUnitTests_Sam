@@ -35,7 +35,7 @@ namespace MathLibrary {
 		}
 
 
-		Vector3 operator+(const Vector3& op) {
+		Vector3 operator+(const Vector3& op) const {
 
 			Vector3 temp;
 			temp.x = x + op.x;
@@ -45,7 +45,7 @@ namespace MathLibrary {
 			return temp;
 		}
 
-		Vector3 operator-(const Vector3& op) {
+		Vector3 operator-(const Vector3& op) const {
 
 			Vector3 temp;
 			temp.x = x - op.x;
@@ -55,7 +55,7 @@ namespace MathLibrary {
 			return temp;
 		}
 
-		Vector3 operator*(const Vector3& op) {
+		Vector3 operator*(const Vector3& op) const {
 
 			Vector3 temp;
 			temp.x = x * op.x;
@@ -65,7 +65,7 @@ namespace MathLibrary {
 			return temp;
 		}
 
-		Vector3 operator*(const float& op) {
+		Vector3 operator*(const float& op) const {
 
 			Vector3 temp;
 			temp.x = x * op;
@@ -75,7 +75,7 @@ namespace MathLibrary {
 			return temp;
 		}
 
-		Vector3 operator/(const float& op) {
+		Vector3 operator/(const float& op) const {
 
 			Vector3 temp;
 			temp.x = x / op;
@@ -141,11 +141,7 @@ namespace MathLibrary {
 
 		Vector3 operator-() {
 
-			x *= -1;
-			y *= -1;
-			z *= -1;
-
-			return *this;
+			return *this * -1;
 		}
 
 		bool operator==(const Vector3& op) const {
@@ -196,43 +192,46 @@ namespace MathLibrary {
 		}
 
 
-		float Dot(const Vector3& op) {
+		float Dot(const Vector3& op) const {
 
 			return x*op.x + y*op.y + z*op.z;
 
 		}
 
-		Vector3 Cross(const Vector3& op) {
+		Vector3 Cross(const Vector3& op) const {
 
 			return {y * op.z - z * op.y, z * op.x - x * op.z, x * op.y - y * op.x};
 
 		}
 
-		float Magnitude() {
+		float Magnitude() const {
 
 			return sqrt(x * x + y * y + z * z);
 
 		}
 
-		void Normalise() {
+		Vector3 Normalised() {				 
 
-			*this / Magnitude();
+			float mag = Magnitude();
+
+			if (mag > 0.0f) {
+				return *this /= mag;
+			}
+			else {
+				return {0,0,0};
+			}
 
 		}
 
-		Vector3 Normalised() {				 
-											// These don't need an input because unlike regular functions, as members of structs they technically 
-			Vector3 temp = *this;			// always have the object they are from fed into/accessible from within the function by default.
+		void Normalise() {
 
-			return temp / Magnitude();
+			*this = Normalised();
 
 		}
 
 		bool IsApproximatelyEqual(const Vector3& op, float E = 1e-4) const {				
 			
-			Vector3 temp = *this;
-
-			return (temp - op).Magnitude() < E;
+			return (abs(x-op.x) < E && abs(y-op.y) < E && abs(z-op.z) < E);
 
 		}															
 
@@ -242,13 +241,13 @@ namespace MathLibrary {
 
 		}
 
-		float Distance(const Vector3& op) {
+		float Distance(const Vector3& op) const {
 
 			return (*this - op).Magnitude();
 
 		}
 
-		float Angle2D() {									
+		float Angle2D() const {									
 																	// Assessment had confusing wording for this part, said it wants the angle around
 			float XYroot = sqrt(x * x + y * y);						// XY from 1,0 but early on it mentions that for 2D stuff x=forward and y=right.
 																	// Also i had to include <math.h> to get proper PI here, hopefully that's allowed.

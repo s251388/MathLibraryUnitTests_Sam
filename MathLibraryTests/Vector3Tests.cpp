@@ -16,7 +16,9 @@ namespace MathLibraryTests
 	// A, B, C defines the points of a triangle in 3d space in counter-clockwise order
 	// This function should calculate the normal vector of this triangle
 	Vector3 CalculateTriangleNormal(const Vector3& A,const Vector3& B,const Vector3& C){
-		return Vector3(0,0,0);
+
+		return ((B - A).Cross(C - A)).Normalised();
+
 	}
 
 	TEST_CLASS(Vector3Tests)
