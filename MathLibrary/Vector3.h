@@ -218,8 +218,6 @@ namespace MathLibrary {
 
 			*this / Magnitude();
 
-			return;
-
 		}
 
 		Vector3 Normalised() {				 
@@ -231,10 +229,12 @@ namespace MathLibrary {
 		}
 
 		bool IsApproximatelyEqual(const Vector3& op, float E = 1e-4) const {				
-																	// By subtracting one from the other, if they are very similar the magnitude of
-			return (*this - op).Magnitude() < E;					// the resulting vector3 should be close to 0. I worry about how this would work
-																	// for vector4s as quaternions though, as any given rotation can be represented
-		}															// by two different sets of values, like 1 0 0 0 and -1 0 0 0, for example.
+			
+			Vector3 temp = *this;
+
+			return (temp - op).Magnitude() < E;
+
+		}															
 
 		float AngleBetween(Vector3& op) {
 
