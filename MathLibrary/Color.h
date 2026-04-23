@@ -27,14 +27,14 @@ namespace MathLibrary
 		}
 		
 
-		bool operator==(const Color& op) {
+		bool operator==(const Color& op) const {
 
 			return rgba == op.rgba;
 
 		}
 
 		
-		unsigned char GetRed() {
+		unsigned char GetRed() const {
 
 			return (unsigned char)rgba >> 24;
 
@@ -47,7 +47,7 @@ namespace MathLibrary
 
 		}   
 
-		unsigned char GetGreen() {
+		unsigned char GetGreen() const {
 
 			return (unsigned char)rgba >> 16;
 
@@ -60,7 +60,7 @@ namespace MathLibrary
 
 		}
 
-		unsigned char GetBlue() {
+		unsigned char GetBlue() const {
 
 			return (unsigned char)rgba >> 8;
 
@@ -73,7 +73,7 @@ namespace MathLibrary
 
 		}
 
-		unsigned char GetAlpha() {
+		unsigned char GetAlpha() const {
 		
 			return (unsigned char)rgba;
 		

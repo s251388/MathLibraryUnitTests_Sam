@@ -148,11 +148,11 @@ namespace MathLibrary {
 			return *this;
 		}
 
-		bool operator==(const Vector3& op) {
+		bool operator==(const Vector3& op) const {
 			return (x == op.x && y == op.y && z == op.z);
 		}
 
-		bool operator!=(const Vector3& op) {
+		bool operator!=(const Vector3& op) const {
 			return (x != op.x || y != op.y || z != op.z);
 		}
 
