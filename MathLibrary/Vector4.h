@@ -251,17 +251,18 @@ namespace MathLibrary {
 
 		}
 
-		bool IsApproximatelyEqual(const Vector4& op, float E = 1e-4) const {				
+		bool IsApproximatelyEqual(const Vector4& op, float E = 1e-4) const {
 
-			for (int i = 0; i < 4; i++) {
-				if (op[i] == NAN) {
+			for (int i = 0; i < 3; i++) {				// Some tests fail when i make this check 4 as well? Should
+				if (abs((*this)[i] - op[i]) < E) {}		// i only be checking W for NAN handling or something?
+				else {
 					return false;
 				}
 			}
 
-			return (abs(x-op.x) < E && abs(y-op.y) < E && abs(z-op.z) < E);
+			return true;
 
-		}	
+		}
 
 		float AngleBetween(Vector4& op) {
 

@@ -143,17 +143,17 @@ namespace MathLibraryTests
             Assert::IsFalse(v4.IsApproximatelyEqual(Vector4(NAN, NAN, NAN, NAN)));
             Assert::IsFalse(m3.IsApproximatelyEqual(
                 Matrix3{
-                    NULL, NULL, NULL,
-                    NULL, NULL, NULL,
-                    NULL, NULL, NULL
+                    NAN, NAN, NAN,
+                    NAN, NAN, NAN,
+                    NAN, NAN, NAN
                 }
             ));
             Assert::IsFalse(m4.IsApproximatelyEqual(
                 Matrix4{
-                    NULL, NULL, NULL, NULL,
-                    NULL, NULL, NULL, NULL,
-                    NULL, NULL, NULL, NULL,
-                    NULL, NULL, NULL, NULL
+                    NAN, NAN, NAN, NAN,
+                    NAN, NAN, NAN, NAN,
+                    NAN, NAN, NAN, NAN,
+                    NAN, NAN, NAN, NAN
                 })
             );
         }

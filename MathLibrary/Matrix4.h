@@ -207,7 +207,8 @@ namespace MathLibrary {
 		bool IsApproximatelyEqual(const Matrix4& op, float E = 1e-4) const {
 
 			for (int i = 0; i < 16; i++) {
-				if (op.arr[i] == NAN || arr[i] - op.arr[i] > E) {
+				if (abs(arr[i] - op.arr[i]) < E) {}
+				else {
 					return false;
 				}
 			}
